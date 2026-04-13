@@ -9,3 +9,13 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+11,Desert Bones,Redwood Hollow,country,melancholic,0.55,96,0.38,0.67,0.74
+12,Bass Cathedral,Subterran,electronic,euphoric,0.88,140,0.72,0.94,0.03
+13,Porch Swing Afternoon,June Larks,folk,peaceful,0.22,68,0.78,0.43,0.97
+14,Iron Curtain,The Wreckage,metal,angry,0.97,180,0.21,0.52,0.04
+15,Bossa Nova Daydream,Clara Voss,bossa nova,romantic,0.44,102,0.85,0.71,0.91
+16,Neon Samurai,Katana Circuit,city pop,nostalgic,0.67,116,0.62,0.80,0.29
+17,Frozen Tundra,Pale Compass,post-rock,sad,0.58,88,0.18,0.36,0.55
+18,Salsa Fuego,Los Ritmos,latin,energetic,0.86,170,0.90,0.93,0.12
+19,Velvet Underground Cafe,Moth & Dusk,blues,longing,0.31,74,0.44,0.48,0.83
+20,Quantum Drift,Aether Nodes,ambient,tense,0.51,130,0.30,0.55,0.61
