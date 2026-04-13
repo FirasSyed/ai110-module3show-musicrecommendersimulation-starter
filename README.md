@@ -17,17 +17,104 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+The system processes songs through a weighted scoring algorithm that compares each song's attributes against the user's preferences. Each song in the dataset is individually evaluated, scored, and then ranked to produce the final recommendations.
+
+### Algorithm Recipe
+
+**Highest Priority Attributes:**
+- Genre Match: +3.0 points (exact), +1.5 points (related genre)
+- Mood Match: +2.5 points (exact), +1.2 points (related mood)
+- Energy Similarity: +2.0 points max, calculated as `2.0 * (1 - |energy - target_energy|)`
+
+**Medium Priority Attributes:**
+- Tempo Similarity: +1.5 points max, calculated as `1.5 * (1 - |tempo - target_tempo| / 120)`
+- Valence Similarity: +1.5 points max, calculated as `1.5 * (1 - |valence - target_valence|)`
+- Danceability Similarity: +1.0 point max, calculated as `1.0 * (1 - |danceability - target_danceability|)`
+
+**Lowest Priority Attributes:**
+- Artist Similarity: +0.5 points (if artist matches user's favorites)
+- Acousticness Preference: +0.5 points (if matches user's likes_acoustic preference)
+
+**Final Processing:**
+- Apply 10.0 point cap per song
+- Sort all songs by total score (descending)
+- Return top K recommendations (typically 3-5 songs)
+
+### Potential Biases
+
+This system might over-prioritize genre matches, potentially overlooking great songs that perfectly match the user's mood and energy preferences but belong to different genres. The heavy weighting on genre (+3.0 points) could create filter bubbles where users are rarely exposed to music outside their preferred genres. Additionally, the binary acousticness preference may oversimplify user taste, as some users might prefer acoustic versions of certain songs but not others.
 
 Some prompts to answer:
 
 - What features does each `Song` use in your system
   - For example: genre, mood, energy, tempo
+
+ Values such as the genre, mood, and energy will be the ones with the highest weight. Then values like valence, dancability, and tempo_bpm will follow. Lastly, values such as the artist and the acousticness will have the least weight.
+
+
 - What information does your `UserProfile` store
+
+favorite_genre, favorite_mood, target_energy, likes_acoustic
+
 - How does your `Recommender` compute a score for each song
+
+The recommendor uses the features detected from the songs and compares them to the user's preferences to calculate a score for each song. High weightages are assigned to factors such as genre that have a high impact on the user's preference.
+
 - How do you choose which songs to recommend
 
+The ones closest to the values that the user prefers in their favorite_genre, favorite_mood, target_energy, and likes_acoustic will be recommended. This is determined through the average of their 3 favorite songs.
+
 You can include a simple diagram or bullet list if helpful.
+
+---
+
+## Example Output
+
+The system successfully recommends songs based on user preferences. Here's an example output for a user who likes **pop** music with **happy** mood and **0.8 energy**:
+
+```
+Loading songs from ../data/songs.csv...
+Loaded songs: 20
+
+============================================================
+MUSIC RECOMMENDATIONS
+============================================================
+User Profile: pop / happy / Energy: 0.8
+============================================================
+
+1. Sunrise City by Neon Echo
+   Genre: pop | Mood: happy | Energy: 0.82
+   Score: 7.46/10.0
+   Reasons: genre match (+3.0), mood match (+2.5), energy similarity (+1.96)
+
+2. Gym Hero by Max Pulse
+   Genre: pop | Mood: intense | Energy: 0.93
+   Score: 4.74/10.0
+   Reasons: genre match (+3.0), energy similarity (+1.74)
+
+3. Rooftop Lights by Indigo Parade
+   Genre: indie pop | Mood: happy | Energy: 0.76
+   Score: 4.42/10.0
+   Reasons: mood match (+2.5), energy similarity (+1.92)
+
+4. Night Drive Loop by Neon Echo
+   Genre: synthwave | Mood: moody | Energy: 0.75
+   Score: 1.90/10.0
+   Reasons: energy similarity (+1.90)
+
+5. Salsa Fuego by Los Ritmos
+   Genre: latin | Mood: energetic | Energy: 0.86
+   Score: 1.88/10.0
+   Reasons: energy similarity (+1.88)
+
+============================================================
+```
+
+**Analysis of Results:**
+- **#1 Sunrise City** perfectly matches the profile (pop + happy + high energy)
+- **#2 Gym Hero** matches genre preference but has intense mood instead of happy
+- **#3 Rooftop Lights** matches mood preference but is indie pop instead of pop
+- The system correctly prioritizes exact genre and mood matches while still considering energy similarity
 
 ---
 
