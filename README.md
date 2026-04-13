@@ -118,6 +118,47 @@ User Profile: pop / happy / Energy: 0.8
 
 ---
 
+## Stress Test Results
+
+The system was tested with diverse user profiles to evaluate robustness and edge case handling:
+
+### Profile 1: High-Energy Pop
+![High-Energy Pop Results](./profile1.png)
+
+**User Profile:** pop / happy / Energy: 0.9
+**Top Recommendation:** Sunrise City by Neon Echo (7.34/10.0)
+**Analysis:** Perfect genre + mood match with high energy similarity
+
+### Profile 2: Chill Lofi  
+![Chill Lofi Results](./profile2.png)
+
+**User Profile:** lofi / chill / Energy: 0.3
+**Top Recommendation:** Midnight Coding by LoRoom (7.42/10.0)
+**Analysis:** Perfect genre + mood match with energy similarity
+
+### Profile 3: Deep Intense Rock
+![Deep Intense Rock Results](./profile3.png)
+
+**User Profile:** rock / intense / Energy: 0.95
+**Top Recommendation:** Storm Runner by Voltline (7.42/10.0)
+**Analysis:** Perfect genre + mood match with high energy similarity
+
+### Profile 4: Conflicting Energy-Mood
+![Conflicting Energy-Mood Results](./profile4.png)
+
+**User Profile:** pop / sad / Energy: 0.9
+**Top Recommendation:** Gym Hero by Max Pulse (4.94/10.0)
+**Analysis:** Genre match dominates over mood conflict, system prioritizes genre preference
+
+### Profile 5: Nonexistent Genre
+![Nonexistent Genre Results](./profile5.png)
+
+**User Profile:** classical / happy / Energy: 0.7
+**Top Recommendation:** Rooftop Lights by Indigo Parade (4.38/10.0)
+**Analysis:** Falls back to mood + energy matching when genre not found
+
+---
+
 ## Getting Started
 
 ### Setup
